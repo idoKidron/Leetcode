@@ -1,0 +1,40 @@
+typedef std::pair<int, int> pairType;
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) 
+    {
+        vector<pairType> mod;
+        for(int i=0; i<nums.size(); i++)
+        {
+            mod.push_back(make_pair(nums[i], i));
+        }
+        vector<int> res;
+        sort(begin(mod), end(mod),
+            [](pairType& first, pairType& second)->bool { return first.first < second.first; });
+        int i=0; int j=nums.size() - 1;
+        while(i < j)
+        {
+            if(mod[i].first + mod[j].first == target)
+            {
+                res.push_back(mod[i].second);
+                res.push_back(mod[j].second);
+                sort(res.begin(), res.end());
+                return res;
+            }
+            else
+            {
+                if(mod[i].first + mod[j].first < target)
+                {
+                    i++;
+                }
+                else
+                {
+                    j--;
+                }
+            }
+        }
+        return res;
+    }
+
+};
